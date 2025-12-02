@@ -53,30 +53,14 @@ inline ll power(ll base, ll exp, ll mod = MOD)
 // =============================================================================
 //  SOLVE FUNCTION
 // =============================================================================
-int memo[100001][1001];
-int dp(vi costs, vi pages, int x, int i)
-{
-  if (i >= costs.size() || x <= 0)
-  {
-    return 0;
-  }
-  if (memo[x][i] != -1)
-  {
-    return memo[x][i];
-  }
-  int not_take = dp(costs, pages, x, i + 1);
-  int take = INT_MIN;
-  if (costs[i] <= x)
-  {
-    take = pages[i] + dp(costs, pages, x - costs[i], i + 1);
-  }
-  return memo[x][i] = max(take, not_take);
-}
+int dp[1001][100001];
+int costs[1001];
+int pages[1001];
+
 void solve()
 {
   int n, x;
   cin >> n >> x;
-  vi costs(n), pages(n);
   for (int i = 0; i < n; i++)
   {
     cin >> costs[i];
@@ -85,7 +69,21 @@ void solve()
   {
     cin >> pages[i];
   }
-  int dp[100001][1001];
+  for (int i = 1; i <= n; i++)
+  {
+    for (int j = 0; j <= x; j++)
+    {
+      int not_take = dp[i - 1][j];
+      int take = 0;
+      if (costs[i - 1] <= j)
+      {
+        take = pages[i - 1] + dp[i - 1][j - costs[i - 1]];
+      }
+      dp[i][j] = max(take, not_take);
+    }
+  }
+
+  cout << dp[n][x] << endl;
 }
 
 // =============================================================================
