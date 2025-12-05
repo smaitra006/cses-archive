@@ -1,0 +1,112 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// =============================================================================
+//  TYPE ALIASES
+// =============================================================================
+using ll = long long;
+using ld = long double;
+using pii = pair<long long, long long>;
+using vi = vector<long long>;
+using vvi = vector<vi>;
+
+// =============================================================================
+//  CONSTANTS
+// =============================================================================
+const ll MOD = 1e9 + 7;
+const ll INF = 1e18;
+
+// =============================================================================
+//  MACROS
+// =============================================================================
+#define fast_io                \
+  ios::sync_with_stdio(false); \
+  cin.tie(nullptr);
+#define pb push_back
+#define all(v) (v).begin(), (v).end()
+#define rall(v) (v).rbegin(), (v).rend()
+#define sz(v) ((ll)(v).size())
+#define fi first
+#define se second
+#define endl '\n'
+
+// =============================================================================
+//  UTILITY FUNCTIONS
+// =============================================================================
+inline ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+inline ll lcm(ll a, ll b) { return (a / gcd(a, b)) * b; }
+
+inline ll power(ll base, ll exp, ll mod = MOD)
+{
+  ll res = 1;
+  base %= mod;
+  while (exp > 0)
+  {
+    if (exp & 1)
+      res = (res * base) % mod;
+    base = (base * base) % mod;
+    exp >>= 1;
+  }
+  return res;
+}
+
+// =============================================================================
+//  SOLVE FUNCTION
+// =============================================================================
+void solve()
+{
+  int x, n;
+  cin >> x >> n;
+  vi a(n + 2);
+  a[0] = 0;
+  a[n + 1] = x;
+  for (int i = 1; i <= n; i++)
+  {
+    cin >> a[i];
+  }
+  map<pii, ll> mp;
+  set<int> st;
+  st.insert(0);
+  st.insert(x);
+  mp[{0, x}] = x;
+  ll maxi = x;
+  for (int i = 1; i <= n; i++)
+  {
+    auto r = st.upper_bound(a[i]);
+    auto l = r;
+    l--;
+    if (mp.find({*l, *r}) != mp.end() && mp[{*l, *r}] == maxi)
+    {
+      maxi = max((a[i] - *l), (*r - a[i]));
+    }
+    else
+    {
+      maxi = max({maxi, (a[i] - *l), (*r - a[i])});
+    }
+    if (mp.find({*l, *r}) != mp.end())
+    {
+      mp.erase({*l, *r});
+    }
+    st.insert(a[i]);
+    mp[{*l, a[i]}] = a[i] - *l;
+    mp[{a[i], *r}] = *r - a[i];
+    cout << maxi << " ";
+  }
+}
+
+// =============================================================================
+//  MAIN FUNCTION
+// =============================================================================
+int main()
+{
+  fast_io;
+  // #ifdef LOCAL
+  // freopen("input.txt", "r", stdin);
+  // freopen("output.txt", "w", stdout);
+  // #endif
+
+  ll t = 1;
+  // cin >> t;
+  while (t--)
+    solve();
+}
