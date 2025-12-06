@@ -53,37 +53,27 @@ inline ll power(ll base, ll exp, ll mod = MOD)
 // =============================================================================
 //  SOLVE FUNCTION
 // =============================================================================
+vector<pii> a;
+int rec(int n, int from, int to, int auxi)
+{
+  if (n == 1)
+  {
+    a.push_back({from, to});
+    return 1;
+  }
+  int x = rec(n - 1, from, auxi, to);
+  a.push_back({from, to});
+  int y = rec(n - 1, auxi, to, from);
+  return (1 + x + y);
+}
 void solve()
 {
-  int x, n;
-  cin >> x >> n;
-  vi a(n + 2);
-  a[0] = 0;
-  a[n + 1] = x;
-  for (int i = 1; i <= n; i++)
+  int n;
+  cin >> n;
+  cout << rec(n, 1, 3, 2) << endl;
+  for (int i = 0; i < a.size(); i++)
   {
-    cin >> a[i];
-  }
-  multiset<ll> ms;
-  set<ll> st;
-  st.insert(0);
-  st.insert(x);
-  ms.insert(x);
-  for (int i = 1; i <= n; i++)
-  {
-    auto r = st.upper_bound(a[i]);
-    auto l = r;
-    l--;
-    if (ms.find(*r - *l) != ms.end())
-    {
-      ms.erase(ms.find(*r - *l));
-    }
-    st.insert(a[i]);
-    ms.insert(a[i] - *l);
-    ms.insert(*r - a[i]);
-    auto ans = ms.end();
-    ans--;
-    cout << *ans << " ";
+    cout << a[i].first << " " << a[i].second << endl;
   }
 }
 

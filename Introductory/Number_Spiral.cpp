@@ -55,36 +55,49 @@ inline ll power(ll base, ll exp, ll mod = MOD)
 // =============================================================================
 void solve()
 {
-  int x, n;
-  cin >> x >> n;
-  vi a(n + 2);
-  a[0] = 0;
-  a[n + 1] = x;
-  for (int i = 1; i <= n; i++)
+  ll y, x;
+  cin >> y >> x;
+  ll res, z;
+  if (x < y)
   {
-    cin >> a[i];
-  }
-  multiset<ll> ms;
-  set<ll> st;
-  st.insert(0);
-  st.insert(x);
-  ms.insert(x);
-  for (int i = 1; i <= n; i++)
-  {
-    auto r = st.upper_bound(a[i]);
-    auto l = r;
-    l--;
-    if (ms.find(*r - *l) != ms.end())
+    if (y % 2 == 1)
     {
-      ms.erase(ms.find(*r - *l));
+      res = (y * y);
     }
-    st.insert(a[i]);
-    ms.insert(a[i] - *l);
-    ms.insert(*r - a[i]);
-    auto ans = ms.end();
-    ans--;
-    cout << *ans << " ";
+    else
+    {
+      res = (y - 1) * (y - 1) + 1;
+    }
+    z = (y - 1) * 2 + 1;
+    if (y % 2 == 1)
+    {
+      res -= (z - x);
+    }
+    else
+    {
+      res += (z - x);
+    }
   }
+  else
+  {
+    if (x % 2 == 1)
+    {
+      res = (x * x);
+    }
+    else
+    {
+      res = (x - 1) * (x - 1) + 1;
+    }
+    if (x % 2 == 1)
+    {
+      res -= (y - 1);
+    }
+    else
+    {
+      res += (y - 1);
+    }
+  }
+  cout << res << endl;
 }
 
 // =============================================================================
@@ -99,7 +112,7 @@ int main()
   // #endif
 
   ll t = 1;
-  // cin >> t;
+  cin >> t;
   while (t--)
     solve();
 }

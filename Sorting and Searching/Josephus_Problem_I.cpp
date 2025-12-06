@@ -55,35 +55,21 @@ inline ll power(ll base, ll exp, ll mod = MOD)
 // =============================================================================
 void solve()
 {
-  int x, n;
-  cin >> x >> n;
-  vi a(n + 2);
-  a[0] = 0;
-  a[n + 1] = x;
-  for (int i = 1; i <= n; i++)
+  int n;
+  cin >> n;
+  deque<int> dq;
+  for (int i = 0; i < n; i++)
   {
-    cin >> a[i];
+    dq.push_back(i + 1);
   }
-  multiset<ll> ms;
-  set<ll> st;
-  st.insert(0);
-  st.insert(x);
-  ms.insert(x);
-  for (int i = 1; i <= n; i++)
+  for (int i = 0; !dq.empty(); ++i)
   {
-    auto r = st.upper_bound(a[i]);
-    auto l = r;
-    l--;
-    if (ms.find(*r - *l) != ms.end())
-    {
-      ms.erase(ms.find(*r - *l));
-    }
-    st.insert(a[i]);
-    ms.insert(a[i] - *l);
-    ms.insert(*r - a[i]);
-    auto ans = ms.end();
-    ans--;
-    cout << *ans << " ";
+    int first = dq.front();
+    dq.pop_front();
+    if (i & 1)
+      cout << first << " ";
+    else
+      dq.push_back(first);
   }
 }
 
