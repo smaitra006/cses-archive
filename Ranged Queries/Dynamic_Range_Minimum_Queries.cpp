@@ -181,7 +181,7 @@ ll query(vi& a, int i, int l, int r, int x, int y) {
   if (l > y || r < x) return INT_MAX;
   if (l >= x && r <= y) return seg[i];
   int mid = l + (r - l) / 2;
-  return min(query(a, (2 * i) + 1, l, mid, x, y), query(a, (2 * i) + 2, mid + 1, r, x, y));
+  return min(query(a, (2 * i) + 1, l, mid, x, y), query(a, (2 * i) + 2, mid + 1, r, x, y)); 
 }
 void solve() {
   cin >> n >> q;
