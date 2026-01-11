@@ -153,50 +153,23 @@ vll primeFactors(ll n) {
 }
 
 // ========================= S O L U T I O N =========================
-ll seg[1000001];
-int n, q;
-void make(vi& a, int i, int l, int r) {
-  if (l == r) {
-    seg[i] = a[l];
-    return;
-  }
-  int mid = l + (r - l) / 2;
-  make(a, (2 * i) + 1, l, mid);
-  make(a, (2 * i) + 2, mid + 1, r);
-  seg[i] = min(seg[(2 * i) + 1], seg[(2 * i) + 2]);
-}
-void update(vi& a, int i, int l, int r, int p, int v) {
-  if (l == r) {
-    seg[i] = v;
-    return;
-  }
-  int mid = l + (r - l) / 2;
-  if (p <= mid)
-    update(a, (2 * i) + 1, l, mid, p, v);
-  else
-    update(a, (2 * i) + 2, mid + 1, r, p, v);
-  seg[i] = min(seg[(2 * i) + 1], seg[(2 * i) + 2]);
-}
-ll query(vi& a, int i, int l, int r, int x, int y) {
-  if (l > y || r < x) return INT_MAX;
-  if (l >= x && r <= y) return seg[i];
-  int mid = l + (r - l) / 2;
-  return min(query(a, (2 * i) + 1, l, mid, x, y), query(a, (2 * i) + 2, mid + 1, r, x, y));
-}
+
 void solve() {
-  cin >> n >> q;
-  vi a(n);
-  cin >> a;
-  make(a, 0, 0, n - 1);
-  while (q--) {
-    int k, x, y;
-    cin >> k >> x >> y;
-    if (k == 1) {
-      update(a, 0, 0, n - 1, x - 1, y);
-    } else {
-      cout << query(a, 0, 0, n - 1, x - 1, y - 1) << endl;
+  int n;
+  cin >> n;
+  vector<pii> a(n);
+  rep(i, 0, n) {
+    cin >> a[i].F;
+    a[i].S = i;
+  }
+  sort(all(a));
+  int ans = 0;
+  rep(i, 0, n) {
+    if (a[i].S > i) {
+      ans = max(ans, a[i].S - i);
     }
   }
+  cout << ans << endl;
 }
 
 int main() {
