@@ -1,0 +1,88 @@
+# =============================================================================
+# Competitive Programming Clang-Format
+# Author intent: Compact, readable, judge-friendly
+# =============================================================================
+
+BasedOnStyle: LLVM
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+
+ColumnLimit: 120
+
+# -----------------------------------------------------------------------------
+# Braces & Blocks
+# -----------------------------------------------------------------------------
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortLoopsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLambdasOnASingleLine: All
+
+# -----------------------------------------------------------------------------
+# Control Statements
+# -----------------------------------------------------------------------------
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: No
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+
+# -----------------------------------------------------------------------------
+# Function & Parameters
+# -----------------------------------------------------------------------------
+BinPackArguments: true
+BinPackParameters: true
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+PenaltyBreakFunctionDeclaration: 300
+
+# -----------------------------------------------------------------------------
+# Alignment (keep compact)
+# -----------------------------------------------------------------------------
+AlignAfterOpenBracket: Align
+AlignOperands: true
+AlignTrailingComments: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignConsecutiveMacros: true
+
+# -----------------------------------------------------------------------------
+# Spaces
+# -----------------------------------------------------------------------------
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpacesInAngles: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+
+# -----------------------------------------------------------------------------
+# Pointer / Reference
+# -----------------------------------------------------------------------------
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# -----------------------------------------------------------------------------
+# Includes
+# -----------------------------------------------------------------------------
+SortIncludes: false
+IncludeBlocks: Preserve
+
+# -----------------------------------------------------------------------------
+# Templates & Lambdas
+# -----------------------------------------------------------------------------
+LambdaBodyIndentation: Signature
+Cpp11BracedListStyle: true
+
+# -----------------------------------------------------------------------------
+# Comments
+# -----------------------------------------------------------------------------
+ReflowComments: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# -----------------------------------------------------------------------------
+# Macros (VERY IMPORTANT FOR CP)
+# -----------------------------------------------------------------------------
+MacroBlockBegin: ""
+MacroBlockEnd: ""
